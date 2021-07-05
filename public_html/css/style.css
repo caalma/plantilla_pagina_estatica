@@ -1,0 +1,12 @@
+* {
+    font-family:sans-serif;
+    color:#333;
+}
+
+body {
+    padding:40px;
+    margin:0;
+    text-align:center;
+    background:#eee;
+}
+body.locked { overflow:hidden; }

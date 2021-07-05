@@ -1,0 +1,2 @@
+# Plantilla de Página Estática
+
