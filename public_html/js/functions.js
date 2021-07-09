@@ -23,7 +23,7 @@ function close_server(sel){
 }
 
 function ask_exit(){
-	return true;
+	return false;
 }
 
 function on_before_unload(e){
