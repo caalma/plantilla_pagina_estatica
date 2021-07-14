@@ -53,3 +53,7 @@ https://github.com/markedjs/marked/blob/master/LICENSE.md
 underscore-min.js
 https://github.com/jashkenas/underscore/blob/master/LICENSE
 
+---------------------------------------
+
+vanilla-css
+https://github.com/bradleytaunt/vanilla-css/blob/master/LICENSE
