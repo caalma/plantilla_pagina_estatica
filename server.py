@@ -15,7 +15,7 @@ class ServerHttp(BaseHTTPRequestHandler):
         self._root = dirname(abspath(__file__))
         self._public = realpath(join(self._root, public_folder))
         self._commands = {
-            'exit': self.__exit,
+            'close_server': self.__exit,
         }
 
         BaseHTTPRequestHandler.__init__(self, *args)
@@ -28,7 +28,10 @@ class ServerHttp(BaseHTTPRequestHandler):
                 file_name = self._public + self.path
         
             with open(file_name, 'rb') as fh:
-                self.__answer(200, self.__mimetype(file_name), fh.read())
+                dat = fh.read()
+                if '.html' in file_name:
+                    dat = self.__add_button_close_server(dat)    
+                self.__answer(200, self.__mimetype(file_name), dat)
 
         elif self.__is_command(self.path):
             self.__do_command(self.path)
@@ -94,6 +97,38 @@ class ServerHttp(BaseHTTPRequestHandler):
             ext = default
         return mime[ext]
 
+    def __add_button_close_server(self, dat):
+        tex = dat.decode('utf-8')
+        pin = '</body>'
+        add = '''
+        <style>
+            #btn_close_server {
+                font-size:.9em;
+                padding:4px 8px;
+                text-decoration:none;
+                position:fixed;
+                bottom:0;
+                right:0;
+                cursor:pointer;
+                opacity:.7;
+                border:0;
+                margin:3px;
+                border:1px solid #aaa;
+            }
+            #btn_close_server:hover {
+                opacity:1;
+            }
+        </style>
+        <script>
+            function server_close(){
+                $.get('/close_server', function(r){
+                    window.close();
+                });
+            }
+        </script>
+        <button id="btn_close_server" href="/exit" onclick="server_close()">EXIT</button>
+        '''
+        return tex.replace(pin, f'{add}{pin}').encode('utf-8')
 
 def server(public_folder='./', host='localhost', port=8000):
 

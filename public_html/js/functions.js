@@ -4,24 +4,6 @@ function yml_load(url, fn){
 	});
 }
 
-function server_shutdown(){
-	$.get('./exit', function(r){
-		window.close();
-	});
-}
-
-function close_server(sel){
-	let e = $(sel);
-	if(document.location.host.indexOf('localhost') < 0){
-		e.remove();
-	}
-	e.on({
-		click: function(ev){
-			server_shutdown();
-		}
-	});
-}
-
 function ask_exit(){
 	return false;
 }

@@ -20,7 +20,6 @@ $(window).on({
 			$('#title').html(G.cfg['title']);
 			$('#content').html(marked.parse(G.cfg['content']));
 
-			close_server('#exit');
 		});
 	},
 });
